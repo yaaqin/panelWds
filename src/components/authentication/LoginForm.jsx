@@ -1,19 +1,49 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FiFacebook, FiGithub, FiTwitter } from 'react-icons/fi'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 const LoginForm = ({ registerPath, resetPath }) => {
+    const [username, setUsername] = useState(''); // Default username (bisa disesuaikan)
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+
+    // Fungsi handle submit untuk menangani login
+    const handleSubmit = (e) => {
+        e.preventDefault(); // Menghindari form melakukan refresh
+
+        // Simpan username dan password di sessionStorage
+        sessionStorage.setItem('username', username);
+        sessionStorage.setItem('password', password);
+
+        // Redirect ke halaman utama atau dashboard setelah login sukses
+        navigate('/'); // Ganti dengan halaman yang sesuai
+    };
+
     return (
         <>
             <h2 className="fs-20 fw-bolder mb-4">Login</h2>
             <h4 className="fs-13 fw-bold mb-2">Login to your account</h4>
-            <p className="fs-12 fw-medium text-muted">Thank you for get back <strong>Nelel</strong> web applications, let's access our the best recommendation for you.</p>
-            <form action="index.html" className="w-100 mt-4 pt-2">
+            <p className="fs-12 fw-medium text-muted">Thank you for getting back to <strong>Nelel</strong> web applications, let's access our the best recommendation for you.</p>
+            <form onSubmit={handleSubmit} className="w-100 mt-4 pt-2">
                 <div className="mb-4">
-                    <input type="email" className="form-control" placeholder="Email or Username" defaultValue="wrapcode.info@gmail.com" required />
+                    <input 
+                        type="text" 
+                        className="form-control" 
+                        placeholder="Username" 
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)} // Menangani perubahan input username
+                        required 
+                    />
                 </div>
                 <div className="mb-3">
-                    <input type="password" className="form-control" placeholder="Password" defaultValue="123456" required />
+                    <input 
+                        type="password" 
+                        className="form-control" 
+                        placeholder="Password" 
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)} // Menangani perubahan input password
+                        required 
+                    />
                 </div>
                 <div className="d-flex align-items-center justify-content-between">
                     <div>

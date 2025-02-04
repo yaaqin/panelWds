@@ -68,11 +68,16 @@ import WidgetsTables from "../pages/widgets-tables";
 import WidgetsCharts from "../pages/widgets-charts";
 import WidgetsStatistics from "../pages/widgets-statistics";
 import WidgetsMiscellaneous from "../pages/widgets-miscellaneous";
+import AuthMiddleware from "../midleware/privateRoute/index";
 
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <RootLayout />,
+        element: (
+            <AuthMiddleware>
+                <RootLayout />
+            </AuthMiddleware>
+        ),
         children: [
             {
                 path: "/",
@@ -276,6 +281,10 @@ export const router = createBrowserRouter([
                 element: <SettingsMiscellaneous />
             },
         ]
+    },
+    {
+        path: '/login',
+        element: <LoginMinimal/>
     },
     {
         path: "/",
